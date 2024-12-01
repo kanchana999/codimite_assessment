@@ -27,7 +27,6 @@ resource "google_container_node_pool" "general_pool" {
     disk_type = "pd-standard"
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
-  max_pods_per_node = 8
 }
 
 resource "google_container_node_pool" "cpu_pool" {
@@ -43,5 +42,4 @@ resource "google_container_node_pool" "cpu_pool" {
     machine_type = var.cpu_pool_machine_type
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
-  max_pods_per_node = 8
 }
