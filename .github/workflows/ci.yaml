@@ -1,4 +1,4 @@
-name: Terraform Deployment
+name: ci Deployment
 
 on:
   push:
@@ -15,11 +15,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: push to gcr
-        uses: Industrial/push-docker-gcr@v1.2.2
+        uses: Dayanand-Chinchure/gcr-upload-action@1.2
         with:
-          docker_image_name: simple-app-gcr
-          docker_image_tag: latest
-          docker_context: ./app
-          gcr_host: gcr.io
-          gcr_project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-          gcr_service_key: ${{ secrets.GCP_CREDENTIALS }}
+          service_account: ${{ secrets.GCP_CREDENTIALS }}
+          source_image: simple-app-gcr:1.0
+          destination_image: gcr.io/simple-app-gcr/simple-app-gcr:1.0
