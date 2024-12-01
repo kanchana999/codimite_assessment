@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: push to gcr
-        uses: Industrial/push-docker-gcr
+        uses: Industrial/push-docker-gcr@v1.2.2
         with:
           docker_image_name: simple-app-gcr
           docker_image_tag: latest
