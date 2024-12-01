@@ -45,5 +45,5 @@ jobs:
           PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
           #tag docker image to gcr image format then push to gcr
         run: |-
-          docker tag $IMAGE_NAME:latest simple-app-gcr/$PROJECT_ID/$IMAGE_NAME:latest 
+          docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
           docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
