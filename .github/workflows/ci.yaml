@@ -14,9 +14,28 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: push to gcr
-        uses: Dayanand-Chinchure/gcr-upload-action@1.2
+      - name: Login to GCR
+        uses: google-github-actions/setup-gcloud@v2.1.2
         with:
-          service_account: ${{ secrets.GCP_CREDENTIALS }}
-          source_image: simple-app-gcr:1.0
-          destination_image: gcr.io/simple-app-gcr/simple-app-gcr:1.0
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          export_default_credentials: true
+
+      - name: Build Docker Image
+        env:
+          IMAGE_NAME: simple-app-gcr #create env called IMAGE_NAME consisted of actual name of Docker Image after we build
+          PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+        run: docker build -t $IMAGE_NAME:latest . #build the docker image
+
+      - name: Configure Docker Client
+        run:  |-
+          gcloud auth configure-docker --quiet #authenticate to gcr
+
+      - name: Push Docker Image to Container Registry GCR
+        env: 
+          IMAGE_NAME: simple-app-gcr
+          PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+          #tag docker image to gcr image format then push to gcr
+        run: |-
+          docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
+          docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
