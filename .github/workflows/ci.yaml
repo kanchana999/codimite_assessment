@@ -1,0 +1,25 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - simple-app
+
+jobs:
+  ci:
+    name: 'gcr deployment'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: push to gcr
+        uses: Industrial/push-docker-gcr
+        with:
+          docker_image_name: simple-app-gcr
+          docker_image_tag: latest
+          docker_context: ./app
+          gcr_host: gcr.io
+          gcr_project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          gcr_service_key: ${{ secrets.GCP_CREDENTIALS }}
