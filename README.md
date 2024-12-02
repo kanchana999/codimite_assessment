@@ -4,7 +4,7 @@
 # GCP Concepts & Networking
 
 1.high-level architecture diagram showing the networking setup
-![alt text](https://github.com/kanchana999/codimite_assessment/blob/main/gcp_diagram.png?raw=true)
+![alt text](https://github.com/kanchana999/codimite_assessment/blob/main/img/gcp_diagram.png?raw=true)
 
 
 2.Summary Explanation
